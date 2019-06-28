@@ -18,13 +18,12 @@ def EnviarEmail(nome):
         recebido = json.loads(nome.body.decode('utf-8'))
 
         send_mail(
-            recebido["assunto"],
+            recebido["mensagem"],
             recebido["link"] + recebido["link"],
             'estudeplus0@gmail.com',
             [recebido["email"]],
             fail_silently=False,
         )
 
-        return JsonResponse(recebido["assunto"], safe=False)
     except ValueError as e:
         return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
