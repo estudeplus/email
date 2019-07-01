@@ -34,7 +34,8 @@ class StudentSerializer(serializers.Serializer):
             serializer.is_valid(raise_exception=True)
             serializer.validated_data        
             
-            sendemail(serializer(serializer)
+            sendemail(serializer)
+            savedata(serializer)
             
             
             return HttpResponse(status=200)
@@ -48,3 +49,23 @@ def savedata(serializer):
         )
         
     student1.save()
+            
+
+def sendemail(serializer):
+    send_mail(
+        serializer.validated_data["mensagem"],
+        serializer.validated_data["link"] + serializer.validated_data["link"],
+        'estudeplus0@gmail.com',
+        [serializer.validated_data["email"]],
+        fail_silently=False,
+    )
+
+
+
+
+
+
+
+    
+    
+    
