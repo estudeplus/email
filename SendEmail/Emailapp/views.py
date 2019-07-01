@@ -17,13 +17,15 @@ def EnviarEmail(nome):
 
         recebido = json.loads(nome.body.decode('utf-8'))
 
-        send_mail(
-            recebido["mensagem"],
-            recebido["link"] + recebido["link"],
-            'estudeplus0@gmail.com',
-            [recebido["email"]],
-            fail_silently=False,
-        )
+        savedata(serializer)
 
     except ValueError as e:
         return Response(e.args[0],status.HTTP_400_BAD_REQUEST)
+
+def savedata(serializer):
+    student1 = Student.objects.create(nome=serializer.validated_data["nome"],
+            matricula=serializer.validated_data["matricula"],
+            email=serializer.validated_data["email"],
+        )
+        
+    student1.save()
